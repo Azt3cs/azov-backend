@@ -3,7 +3,8 @@ import bodyParser from "body-parser";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUI from 'swagger-ui-express';
 import userRouter from './Routes/users'
-
+import eventsRoute from './Routes/events'
+import achivments from "./Routes/achivments";
 import cors from 'cors'
 const app = express()
 const port = 3030
@@ -25,7 +26,8 @@ app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
 app.use('/api',userRouter)
-
+app.use('/api', eventsRoute)
+app.use('/api',achivments )
 app.use('/documentation', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 app.get('/', (req: Request, res: Response) => {
     res.send('Привет, мир!');
