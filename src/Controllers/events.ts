@@ -7,6 +7,7 @@ export async function createEvent(name: string, description: string, time_spendi
 
     try {
         const result = await db.one(queryText, values);
+
         return result.id;
     } catch (error) {
         console.error('Ошибка при создании события:', error);
@@ -27,11 +28,10 @@ export async function getEvent() {
 
 export async function registerEvent(eventId: number, userId: number) {
     const values = [eventId, userId];
-
-    const queryText = 'INSERT INTO public.event_history (event, "user") VALUES ($1, $2)';
-    const updText = ''
+    const queryText = 'INSERT INTO event_history (event, "user") VALUES ($1, $2)';
     try {
         await db.none(queryText, values);
+        await db.none('UPDATE users SET expirience = expirience + 10 WHERE id = $1', userId);
     } catch (error) {
         console.error('Ошибка при регистрации пользователя на мероприятие:', error);
         throw error;

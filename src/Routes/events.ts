@@ -54,9 +54,9 @@ const router = express.Router();
 
 /**
  * @swagger
- * /event/registerEvent:
+ * /api/event/registerEvent:
  *   post:
- *     summary: Создание события
+ *     summary: Запись на событие
  *     tags:
  *       - События
  *     requestBody:
@@ -67,9 +67,9 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               eventID:
+ *               eventId:
  *                 type: number
- *               userID:
+ *               userId:
  *                 type: number
  *     responses:
  *       '201':
@@ -177,6 +177,7 @@ router.post('/event/registerEvent', async (req: Request, res: Response) => {
 
     try {
         await db.registerEvent(eventId, userId);
+
         res.status(200).json({ message: 'Пользователь успешно зарегистрирован на мероприятие' });
     } catch (error) {
         console.error('Ошибка при регистрации пользователя на мероприятие:', error);
