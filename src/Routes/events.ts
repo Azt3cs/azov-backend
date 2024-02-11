@@ -129,7 +129,7 @@ const router = express.Router();
 
 
 router.post('/event/create', async (req: Request, res: Response) => {
-    const { name, description, time_spending, coordinates, status, reward } = req.body;
+    const { name, description, time_spending, coordinates, status, reward,img } = req.body;
     const url: string = "https://cleaner.dadata.ru/api/v1/clean/address";
     const token: string = "af76299f7dae225c05644106e2d432906ecf7ebe";
     const secret: string = "e013939c8df37e83df4be8cccbbcfe4932a31b83";
@@ -154,7 +154,7 @@ router.post('/event/create', async (req: Request, res: Response) => {
 
         const geo = `${geoLat} ${geoLon}`;
 
-        const id = await db.createEvent(name, description, time_spending, geo, status, reward);
+        const id = await db.createEvent(name, description, time_spending, geo, status, reward,img);
         res.status(201).json({ id, message: 'Event created successfully' });
     } catch (error) {
         console.error(error);
@@ -184,6 +184,7 @@ router.post('/event/registerEvent', async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Ошибка сервера' });
     }
 });
+router
 
 // router.delete('/apartments/delete', async (req:Request, res:Response) => {
 //     try {

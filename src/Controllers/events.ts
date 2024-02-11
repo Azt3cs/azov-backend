@@ -1,9 +1,9 @@
 import { db } from '../db'
 
-export async function createEvent(name: string, description: string, time_spending: Date, coordinates: string, status: boolean, reward: number) {
-    const values = [name, description, time_spending, coordinates, status, reward];
+export async function createEvent(name: string, description: string, time_spending: Date, coordinates: string, status: boolean, reward: number,img:string) {
+    const values = [name, description, time_spending, coordinates, status, reward,img];
 
-    const queryText = 'INSERT INTO public.events (name, description, time_spending, coordinates, status, reward) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id';
+    const queryText = 'INSERT INTO public.events (name, description, time_spending, coordinates, status, reward,img) VALUES ($1, $2, $3, $4, $5, $6,$7) RETURNING id';
 
     try {
         const result = await db.one(queryText, values);
